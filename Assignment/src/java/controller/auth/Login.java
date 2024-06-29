@@ -72,7 +72,7 @@ public class Login extends HttpServlet {
         String password = request.getParameter("password");
         
         UserDBContext db = new UserDBContext();
-        User user = db.get(username, password);
+        User user = db.getUserByUsernamePassword(username, password);
         if(user !=null)
         {
             request.getSession().setAttribute("user", user);
