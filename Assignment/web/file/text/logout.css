@@ -1,0 +1,31 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Jul 1, 2024, 9:10:33 PM
+    Author     : Vanxuan
+*/
+
+/* styles.css */
+
+.logout-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background-color: #4CAF50; /* Màu xanh lá cây giống nút Login */
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.logout-btn:hover {
+    background-color: #45a049; /* Màu xanh đậm hơn khi hover */
+}
+
+body {
+    padding-top: 60px; /* Để tránh nút logout che nội dung */
+}
