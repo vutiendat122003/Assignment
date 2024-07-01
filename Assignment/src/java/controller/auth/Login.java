@@ -68,7 +68,7 @@ public class Login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-      String username = request.getParameter("username");
+        String username = request.getParameter("username");
         String password = request.getParameter("password");
         
         UserDBContext db = new UserDBContext();
@@ -76,7 +76,17 @@ public class Login extends HttpServlet {
         if(user !=null)
         {
             request.getSession().setAttribute("user", user);
-            response.getWriter().println("hello "+user.getDisplayname()+"!");
+        
+        // Kiểm tra vai trò của người dùng
+        String role = user.getRole();
+        
+        if ("teacher".equalsIgnoreCase(role)) {
+             response.sendRedirect("exam/lecturer"); // Chuyển hướng đến trang giảng viên
+        } else if ("student".equalsIgnoreCase(role)) {
+            response.sendRedirect("exam/student"); // Chuyển hướng đến trang sinh viên
+        } else {
+            response.getWriter().println("Role not recognized!");
+        }
         }
         else
         {

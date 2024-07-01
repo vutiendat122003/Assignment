@@ -14,6 +14,19 @@ public class User {
     private String displayname;
     private Lecturer lecturer;
     private Student student;
+    private String role;
+
+    public User() {
+    }
+
+    public User(String username, String password, String displayname, Lecturer lecturer, Student student, String role) {
+        this.username = username;
+        this.password = password;
+        this.displayname = displayname;
+        this.lecturer = lecturer;
+        this.student = student;
+        this.role = role;
+    }
 
     public String getUsername() {
         return username;
@@ -54,5 +67,15 @@ public class User {
     public void setStudent(Student student) {
         this.student = student;
     }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+    
+
     
 }

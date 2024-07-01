@@ -21,10 +21,13 @@ public class UserDBContext extends DBContext<User> {
         PreparedStatement stm =null;
         User user = null;
         try {
-            String sql = "SELECT u.username,u.displayname,l.lid,l.lname\n"
-                    + "FROM users u LEFT JOIN users_lecturers ul ON ul.username = u.username AND ul.active = 1\n"
-                    + "						LEFT JOIN lecturers l ON ul.lid = l.lid\n"
-                    + "						WHERE u.username = ? AND u.[password] = ?";
+            String sql = "SELECT u.username, u.displayname, l.lid, l.lname, r.rolename\n"
+                   + "FROM users u\n"
+                   + "LEFT JOIN users_lecturers ul ON ul.username = u.username AND ul.active = 1\n"
+                   + "LEFT JOIN lecturers l ON ul.lid = l.lid\n"
+                   + "LEFT JOIN users_role ur ON u.username = ur.username\n"
+                   + "LEFT JOIN roles r ON ur.roleid = r.roleid\n"
+                   + "WHERE u.username = ? AND u.[password] = ?";
             stm = connection.prepareStatement(sql);
             stm.setString(1, username);
             stm.setString(2, password);
@@ -34,6 +37,7 @@ public class UserDBContext extends DBContext<User> {
                 user = new User();
                 user.setDisplayname(rs.getString("displayname"));
                 user.setUsername(username);
+                user.setRole(rs.getString("rolename"));
                 int lid = rs.getInt("lid");
                 if(lid!=0)
                 {

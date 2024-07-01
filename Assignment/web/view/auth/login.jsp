@@ -10,6 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
          <link href="${pageContext.request.contextPath}/file/text/basic.css" rel="stylesheet" type="text/css"/>
+         <link href="${pageContext.request.contextPath}/file/text/logout.css" rel="stylesheet" type="text/css"/>
         <title>JSP Page</title>
     </head>
     <body>
@@ -26,5 +27,7 @@
                ${requestScope.error}
            </div>
         </form>
+           <a href="${pageContext.request.contextPath}/logout" class="logout-btn">Logout</a>
+
     </body>
 </html>
