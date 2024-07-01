@@ -12,8 +12,28 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <link href="${pageContext.request.contextPath}/file/text/lecturer.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/file/text/logout.css" rel="stylesheet" type="text/css"/>
+        <script>
+            function toggleSelectAll(source) {
+                checkboxes = document.getElementsByName('eid');
+                for (var i = 0, n = checkboxes.length; i < n; i++) {
+                    checkboxes[i].checked = source.checked;
+                }
+            }
+        </script>
+        <style>
+            
+            .select-all {
+                background-color: #FFC107; /* Yellow background */
+                border-color: #FFC107; /* Yellow border */
+            }
+
+            .select-all:checked::before {
+                color: #FFC107; /* Yellow check mark */
+            }
+        </style>
     </head>
-   <body>
+    <body>
         <form action="${requestScope.exams eq null ? 'lecturer' : 'take'}" method="${requestScope.exams eq null ? 'POST' : 'GET'}">
             <c:if test="${requestScope.exams eq null}">
                 <c:if test="${requestScope.courses.size() > 0}">
@@ -37,8 +57,13 @@
                         <label for="exam-${e.id}">${e.assessment.name} - (${e.from}: ${e.assessment.weight}%)</label>
                     </div>
                 </c:forEach>
+                <div class="exam-item">
+                    <input type="checkbox" id="selectAll" class="select-all"  onclick="toggleSelectAll(this)"/> 
+                    <label for="select-all">Select All</label>
+                </div>
                 <input type="submit" value="Take"/>
             </c:if>
         </form>
+        <a href="${pageContext.request.contextPath}/logout" class="logout-btn">Logout</a>
     </body>
 </html>

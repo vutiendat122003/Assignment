@@ -72,15 +72,35 @@ input[type="checkbox"] {
 }
 
 input[type="checkbox"]:checked::before {
-    content: '\2713';
+    content: '';
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: #4CAF50;
-    font-size: 14px;
+    width: 10px;
+    height: 10px;
+    background-color: #4CAF50;
+    border-radius: 50%;
 }
 
 label {
     cursor: pointer;
+}
+
+/* Styles for "Select All" checkbox */
+#selectAll {
+    width: 24px;
+    height: 24px;
+    border: 2px solid #007bff;
+}
+
+#selectAll:checked::before {
+    width: 12px;
+    height: 12px;
+    background-color: #007bff;
+}
+
+label[for="selectAll"] {
+    font-weight: bold;
+    color: #007bff;
 }

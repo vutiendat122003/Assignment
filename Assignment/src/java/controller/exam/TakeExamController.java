@@ -75,46 +75,61 @@ public class TakeExamController extends BaseRequiredLecturerAuthenticationContro
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response,User user, Lecturer lecturer)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response, User user, Lecturer lecturer)
     throws ServletException, IOException {
         int cid = Integer.parseInt(request.getParameter("cid"));
         HashSet<Integer> eids = new HashSet<>();
         
         String[] raw_gradeids = request.getParameterValues("gradeid");
         ArrayList<Grade> grades = new ArrayList<>();
+        ArrayList<String> errors = new ArrayList<>();
+
         for (String raw_gradeid : raw_gradeids) {
-          int sid = Integer.parseInt(raw_gradeid.split("_")[0]);
-          int eid = Integer.parseInt(raw_gradeid.split("_")[1]);
-          
-          eids.add(eid);
-          
-          String raw_score = request.getParameter("score"+sid+"_"+eid);
-          if(raw_score.length()>0)
-          {
-              Grade g = new Grade();
-              Exam e = new Exam();
-              e.setId(eid);
-              
-              Student s = new Student();
-              s.setId(sid);
-              
-              g.setExam(e);
-              g.setStudent(s);
-              g.setScore(Float.parseFloat(raw_score));
-              
-              grades.add(g);
-          }
+            int sid = Integer.parseInt(raw_gradeid.split("_")[0]);
+            int eid = Integer.parseInt(raw_gradeid.split("_")[1]);
+            
+            eids.add(eid);
+            
+            String raw_score = request.getParameter("score" + sid + "_" + eid);
+            if(raw_score != null && !raw_score.trim().isEmpty()) {
+                try {
+                    float score = Float.parseFloat(raw_score);
+                    if (score >= 0 && score <= 10) {
+                        Grade g = new Grade();
+                        Exam e = new Exam();
+                        e.setId(eid);
+                        
+                        Student s = new Student();
+                        s.setId(sid);
+                        
+                        g.setExam(e);
+                        g.setStudent(s);
+                        g.setScore(score);
+                        
+                        grades.add(g);
+                    } else {
+                        errors.add("Điểm không hợp lệ cho học sinh " + sid + " trong bài kiểm tra " + eid + ": " + raw_score + ". Điểm phải từ 0 đến 10.");
+                    }
+                } catch (NumberFormatException e) {
+                    errors.add("Định dạng điểm không hợp lệ cho học sinh " + sid + " trong bài kiểm tra " + eid + ": " + raw_score);
+                }
+            }
         }
         
+        if (!errors.isEmpty()) {
+            request.setAttribute("errors", errors);
+            doGet(request, response, user, lecturer);
+            return;
+        }
+
         GradeDBContext db = new GradeDBContext();
         db.insertGradesForCourse(cid, grades);
+        
         String url_param = "";
         for (Integer eid : eids) {
-            url_param+="&eid="+eid;
+            url_param += "&eid=" + eid;
         }
-        response.sendRedirect("take?cid="+cid+url_param);
-        
-        
+        response.sendRedirect("take?cid=" + cid + url_param);
     }
 
     /** 
