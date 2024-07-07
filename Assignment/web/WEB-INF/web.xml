@@ -16,6 +16,10 @@
         <servlet-name>TakeExamController</servlet-name>
         <servlet-class>controller.exam.TakeExamController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ViewSemesterByStudentController</servlet-name>
+        <servlet-class>controller.exam.ViewSemesterByStudentController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -31,5 +35,9 @@
     <servlet-mapping>
         <servlet-name>TakeExamController</servlet-name>
         <url-pattern>/exam/take</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewSemesterByStudentController</servlet-name>
+        <url-pattern>/semester/student</url-pattern>
     </servlet-mapping>
 </web-app>

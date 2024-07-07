@@ -9,14 +9,32 @@ package model;
  * @author X1 Nano
  */
 public class Semester {
-    private int id;
+    private int semid;
+    private String season;
+    private int year;
 
-    public int getId() {
-        return id;
+    public String getSeason() {
+        return season;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setSeason(String season) {
+        this.season = season;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public int getSemid() {
+        return semid;
+    }
+
+    public void setSemid(int semid) {
+        this.semid = semid;
     }
     
 }

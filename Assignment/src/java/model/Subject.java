@@ -47,4 +47,5 @@ public class Subject {
     public void setCourses(ArrayList<Course> courses) {
         this.courses = courses;
     }
+   
 }
