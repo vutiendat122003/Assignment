@@ -88,19 +88,12 @@ label {
 }
 
 /* Styles for "Select All" checkbox */
-#selectAll {
-    width: 24px;
-    height: 24px;
-    border: 2px solid #007bff;
-}
+ .select-all {
+                background-color: #FFC107; /* Yellow background */
+                border-color: #FFC107; /* Yellow border */
+            }
 
-#selectAll:checked::before {
-    width: 12px;
-    height: 12px;
-    background-color: #007bff;
-}
-
-label[for="selectAll"] {
-    font-weight: bold;
-    color: #007bff;
+            .select-all:checked::before {
+                color: #FFC107; /* Yellow check mark */
+            
 }
