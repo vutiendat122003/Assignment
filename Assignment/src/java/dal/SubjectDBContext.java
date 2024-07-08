@@ -23,7 +23,7 @@ public class SubjectDBContext extends DBContext<Subject> {
         PreparedStatement stm = null;
         ResultSet rs = null;
         try {
-            String sql = "SELECT DISTINCT s.subname\n"
+            String sql = "SELECT DISTINCT s.subname,s.subid\n"
                     + "FROM courses c\n"
                     + "JOIN students_courses sc ON c.cid = sc.cid\n"
                     + "JOIN subjects s ON c.subid = s.subid\n"
@@ -35,6 +35,7 @@ public class SubjectDBContext extends DBContext<Subject> {
             rs = stm.executeQuery();
             while (rs.next()) {
                 Subject subject = new Subject();
+                subject.setId(rs.getInt("subid"));
                 subject.setName(rs.getString("subname"));
                 Subjects.add(subject);
             }

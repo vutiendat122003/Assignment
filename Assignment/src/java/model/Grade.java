@@ -12,6 +12,15 @@ public class Grade {
     private Exam exam;
     private Student student;
     private float score;
+    private float weightedScore;
+
+    public float getWeightedScore() {
+        return weightedScore;
+    }
+
+    public void setWeightedScore(float weightedScore) {
+        this.weightedScore = weightedScore;
+    }
 
     public Exam getExam() {
         return exam;
@@ -36,5 +45,7 @@ public class Grade {
     public void setScore(float score) {
         this.score = score;
     }
+
+    
     
 }
