@@ -31,7 +31,7 @@ public class Logout extends HttpServlet {
         if (session != null) {
             session.invalidate(); // Xóa session
         }
-        response.sendRedirect("login"); // Chuyển hướng đến trang login sau khi logout
+        response.sendRedirect("index.html"); // Chuyển hướng đến trang login sau khi logout
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
