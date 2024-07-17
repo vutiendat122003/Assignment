@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Subject;
@@ -59,6 +60,26 @@ public class SubjectDBContext extends DBContext<Subject> {
         }
         return Subjects;
     }
+    public List<Subject> getAll() {
+        List<Subject> subjects = new ArrayList<>();
+        String sql = "SELECT subid, subname FROM subjects";
+        
+        try (PreparedStatement stmt = connection.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+            
+            while (rs.next()) {
+                Subject subject = new Subject();
+                subject.setId(rs.getInt("subid"));
+                subject.setName(rs.getString("subname"));
+                subjects.add(subject);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return subjects;
+    }
+
 
     @Override
     public ArrayList<Subject> all() {

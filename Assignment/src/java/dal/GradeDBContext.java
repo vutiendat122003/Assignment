@@ -8,6 +8,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Assessment;
@@ -178,6 +181,33 @@ public class GradeDBContext extends DBContext<Grade> {
             }
         }
         return grades;
+    }
+
+    public Map<String, List<Float>> getAllGrades() {
+        Map<String, List<Float>> gradesBySubject = new HashMap<>();
+
+        String sql = "SELECT s.subname, g.score "
+                + "FROM grades g "
+                + "JOIN exams e ON g.eid = e.eid "
+                + "JOIN assesments a ON e.aid = a.aid "
+                + "JOIN subjects s ON a.subid = s.subid";
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            stm = connection.prepareStatement(sql);
+            rs = stm.executeQuery();
+
+            while (rs.next()) {
+                String subjectName = rs.getString("subname");
+                float score = rs.getFloat("score");
+
+                gradesBySubject.computeIfAbsent(subjectName, k -> new ArrayList<>()).add(score);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return gradesBySubject;
     }
 
     @Override

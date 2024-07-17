@@ -7,6 +7,7 @@ package dal;
 import java.util.ArrayList;
 import model.Semester;
 import java.sql.*;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -56,6 +57,26 @@ public class SemesterDBContext extends DBContext<Semester> {
     }
     return semesters;
 }
+     public List<Semester> getAll() {
+        List<Semester> semesters = new ArrayList<>();
+        String sql = "SELECT semid, year, season FROM semester";
+        
+        try (PreparedStatement stmt = connection.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+            
+            while (rs.next()) {
+                Semester semester = new Semester();
+                semester.setSemid(rs.getInt("semid"));
+                semester.setYear(rs.getInt("year"));
+                semester.setSeason(rs.getString("season"));
+                semesters.add(semester);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return semesters;
+    }
 
     @Override
     public ArrayList<Semester> all() {
