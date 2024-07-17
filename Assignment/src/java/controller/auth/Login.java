@@ -69,7 +69,11 @@ public class Login extends HttpServlet {
                 response.sendRedirect("exam/lecturer"); // Chuyển hướng đến trang giảng viên
             } else if ("student".equalsIgnoreCase(role)) {
                 response.sendRedirect("semester/student"); // Chuyển hướng đến trang sinh viên
-            } else {
+            }
+            else if("admin".equalsIgnoreCase(role)){
+                response.sendRedirect("view/admin"); 
+            }
+            else {
                 response.getWriter().println("Role not recognized!");
             }
         } else {

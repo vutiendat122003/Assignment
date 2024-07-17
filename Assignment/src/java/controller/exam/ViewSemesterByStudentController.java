@@ -56,7 +56,6 @@ public class ViewSemesterByStudentController extends BaseRequiredStudentAuthenti
         int sid = student.getId();
         ArrayList<Semester> semesters = db.getSemesterBySid(sid);
         request.setAttribute("semesters", semesters);
-
         request.getRequestDispatcher("../view/student/student.jsp").forward(request, response);
 
     }
